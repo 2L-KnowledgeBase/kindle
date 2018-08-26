@@ -27,3 +27,7 @@ lib/spark-examples*.jar \
 
 1. [SparkSession vs SparkContext](http://data-flair.training/forums/topic/sparksession-vs-sparkcontext-in-apache-spark)
 2. [Apache Spark RDD vs DataFrame vs DataSet](https://data-flair.training/blogs/apache-spark-rdd-vs-dataframe-vs-dataset/)
+
+### Q & A
+
+1. How to load local file in sc.textFile, instead of HDFS? `lines = sc.textFile("file:///home/XXX/spark-1.6.3-bin-hadoop2.6/README.md")
