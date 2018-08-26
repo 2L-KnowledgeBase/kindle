@@ -4,7 +4,24 @@
 
     - [Spark SQL (Java)](https://github.com/holdenk/learning-spark-examples/tree/master/src/main/java/com/oreilly/learningsparkexamples/java)
     - [Mastering Spark SQL](https://jaceklaskowski.gitbooks.io/mastering-spark-sql/content/)
+
+2. interactive shell
+
+    - 1.x: `bin/pyspark` or `bin/pyspark --master local[2]`, SparkSession available as 'spark'
+    - 2.x: `bin/pyspark` or `bin/pyspark --master local[2]`, SparkContext available as sc, HiveContext available as sqlContext.
     
+3. `spark submit`
+
+```
+./bin/spark-submit --class org.apache.spark.examples.SparkPi \
+--master yarn-cluster \
+--num-executors 3 \
+--driver-memory 4g \
+--executor-memory 2g \
+--executor-cores 1 \
+lib/spark-examples*.jar \
+10
+```
 
 ### Spark 1.x vs 2.x
 
