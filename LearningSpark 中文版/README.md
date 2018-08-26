@@ -88,6 +88,16 @@ public class WordCount {
 ### Concepts
 
 1. 每一个spark应用程序 包含 在一个集群上运行各种并行操作的驱动程序(A Spark driver (aka an application's driver process) is a JVM process that hosts SparkContext for a Spark application)
+2. spark应用程序在集群运行时的步骤:
+    a) 用户使用 spark-submit 提交一个应用
+    b) spark-submit 启动 driver 程序，并调用其中的 main() 方法
+    c) driver 程序联系 *集群管理器(hadoop YARN/Apache Mesos/built-in Standalong)* 请求资源来启动各 executor
+    d) *集群管理器* 代表 driver 程序启动各 executor
+    e) driver 进程运行整个用户应用，程序中基于 RDD 的变化和动作（有向无环图 DAG) , driver程序以task形式发送到各 executor
+    f) task 在 executor 进程中运行来计算和保存结果
+    g) 如果 driver 的 main() 方法退出 或者 调用了 SparkContext.stop(), 就会中止 excuter 的运行并释放集群管理器分配的资源
+    
+
 
 ### Spark 1.x vs 2.x
 
