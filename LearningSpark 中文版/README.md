@@ -22,7 +22,69 @@
 --executor-cores 1 \
 lib/spark-examples*.jar \
 10
+
+# maven build and run
+mvn clean && mvn compile && mvn package
+spark-submit --master \
+--class com.package_xx.WordCount \
+./target/xxx.jar \
+./README.md ./wordcounts
 ```
+
+4. create your own standalone application, e.g. [WordCount](https://github.com/holdenk/learning-spark-examples/blob/master/mini-complete-example/src/main/java/com/oreilly/learningsparkexamples/mini/java/WordCount.java)
+
+``` java
+import java.util.Arrays;
+import java.util.List;
+import java.lang.Iterable;
+
+import scala.Tuple2;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.FlatMapFunction;
+import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.api.java.function.PairFunction;
+
+
+public class WordCount {
+  public static void main(String[] args) throws Exception {
+    String inputFile = args[0];
+    String outputFile = args[1];
+    
+    // Create a Java Spark Context.
+    SparkConf conf = new SparkConf().setAppName("wordCount");
+		JavaSparkContext sc = new JavaSparkContext(conf);
+        
+    // Load our input data.
+    JavaRDD<String> input = sc.textFile(inputFile);
+    
+    // Spark 传递函数
+    // Split up into words.
+    JavaRDD<String> words = input.flatMap(
+      new FlatMapFunction<String, String>() {
+        public Iterable<String> call(String x) {
+          return Arrays.asList(x.split(" "));
+        }});
+        
+    // Transform into word and count.
+    JavaPairRDD<String, Integer> counts = words.mapToPair(
+      new PairFunction<String, String, Integer>(){
+        public Tuple2<String, Integer> call(String x){
+          return new Tuple2(x, 1);
+        }}).reduceByKey(new Function2<Integer, Integer, Integer>(){
+            public Integer call(Integer x, Integer y){ return x + y;}});
+    // Save the word count back out to a text file, causing evaluation.
+    counts.saveAsTextFile(outputFile);
+	}
+}
+```
+
+
 ### Concepts
 
 1. 每一个spark应用程序 包含 在一个集群上运行各种并行操作的驱动程序(A Spark driver (aka an application's driver process) is a JVM process that hosts SparkContext for a Spark application)
