@@ -107,3 +107,4 @@ public class WordCount {
 ### Q & A
 
 1. [How to load local file in sc.textFile, instead of HDFS?](https://stackoverflow.com/questions/27299923/how-to-load-local-file-in-sc-textfile-instead-of-hdfs) `lines = sc.textFile("file:///home/XXX/spark-1.6.3-bin-hadoop2.6/README.md")`
+2. [http://sqlandhadoop.com/how-to-implement-recursive-queries-in-spark/](http://sqlandhadoop.com/how-to-implement-recursive-queries-in-spark/)
