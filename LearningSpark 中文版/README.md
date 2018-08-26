@@ -4,6 +4,7 @@
 
     - [Spark SQL (Java)](https://github.com/holdenk/learning-spark-examples/tree/master/src/main/java/com/oreilly/learningsparkexamples/java)
     - [Mastering Spark SQL](https://jaceklaskowski.gitbooks.io/mastering-spark-sql/content/)
+    - [Mastering Apache Spark](https://jaceklaskowski.gitbooks.io/mastering-apache-spark/content/)
 
 2. interactive shell
 
@@ -22,6 +23,9 @@
 lib/spark-examples*.jar \
 10
 ```
+### Concepts
+
+1. 每一个spark应用程序 包含 在一个集群上运行各种并行操作的驱动程序(A Spark driver (aka an application's driver process) is a JVM process that hosts SparkContext for a Spark application)
 
 ### Spark 1.x vs 2.x
 
