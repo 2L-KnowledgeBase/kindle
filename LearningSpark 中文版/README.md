@@ -29,6 +29,14 @@ spark-submit --master \
 --class com.package_xx.WordCount \
 ./target/xxx.jar \
 ./README.md ./wordcounts
+
+# CDH running spark application on YARN
+# https://www.cloudera.com/documentation/enterprise/5-11-x/topics/cdh_ig_running_spark_on_yarn.html
+spark-submit --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster $SPARK_HOME/lib/spark-examples.jar 10
+
+18/08/27 11:26:16 INFO yarn.Client: Application report for application_1528103907147_4900 (state: ACCEPTED)
+
+yarn logs -applicationId application_1528103907147_4900
 ```
 
 4. create your own standalone application, e.g. [WordCount](https://github.com/holdenk/learning-spark-examples/blob/master/mini-complete-example/src/main/java/com/oreilly/learningsparkexamples/mini/java/WordCount.java)
